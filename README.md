@@ -5,14 +5,13 @@
 ## Overview
 This repository containes sourcecode and documentation related to our publication **FastSurfer-LIT: Lesion Inpainting Tool for Whole Brain MRI Segmentation With Tumors,
 Cavities and Abnormalities** (doi pending).
-This tool can inpaint lesions independent of their shape or appearance for further downstream analysis. The tool can be run standalone and in conjuction with FastSurfer for whole brain segmentation and cortical surface reconstruction. It can also automatically masks tumor regions in the FastSurfer outputs.
+This tool can inpaint lesions independent of their shape or appearance for further downstream analysis. The tool can be run standalone and in conjuction with FastSurfer for whole brain segmentation and cortical surface reconstruction. It can also mask tumor regions in the FastSurfer outputs.
 
 ## Quickstart
 
 ```bash
 git clone https://github.com/Deep-MI/LIT.git && cd LIT
 ./run_lit_containerized.sh --input_image T1w.nii.gz --mask_image lesion_mask.nii.gz --output_directory output_directory
-# Add --fastsurfer above to include segmentation & surface reconstruction
 # Add --singularity to use singularity instead of docker
 ```
 
