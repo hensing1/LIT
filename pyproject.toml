@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lit"
+version = "0.1.0"
+description = "Lesion Inpainting Tool"
+authors = [
+    {name = "Clemens Pollak, David, Kuegler, Martin Reuter, et al.", email = "clemens.pollak@dzne.de"}
+]
+maintainers = [{name = 'FastSurfer Developers'}]
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.21.0",
+    "torch>=2.0.0",
+    "nibabel>=4.0.0",
+    "monai==1.2.0",
+    "matplotlib>=3.5.0",
+    "tqdm>=4.65.0",
+    "pillow>=9.0.0",
+    "pyyaml>=6.0.0",
+    "filelock>=3.0.0",
+    "typing-extensions>=4.0.0",
+]
+keywords = [
+    "brain",
+    "MRI",
+    "diffusion",
+    "inpainting",
+    "medical image analysis",
+    "tumor",
+    "lesion",
+    "segmentation"
+]
+
+[tool.setuptools]
+packages = ["lit"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]
+
+
+[project.scripts]
+inpaint-image = "lit/inpaint_image.py"
+
+
