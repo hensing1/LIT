@@ -98,13 +98,16 @@ def fallback_multiple_urls(checkpoint_name: str, urls: list[str], verbose: bool 
         try:
             check_and_download_ckpts(checkpoint_name, [url], verbose)
         except Exception as e:
-            print(f"Error downloading {checkpoint_name} from {url}: {e}")
+            print(f"Tried downloading {checkpoint_name} from {url} but failed")
 
 
 def main():
-    fallback_multiple_urls("weights/model_coronal.pt", urls=["https://github.com/ClePol/LIT/releases/download/weights/model_coronal.pt", "https://zenodo.org/records/14497226/files/model_coronal.pt?download=1"], verbose=True)
-    fallback_multiple_urls("weights/model_axial.pt", urls=["https://github.com/ClePol/LIT/releases/download/weights/model_axial.pt", "https://zenodo.org/records/14497226/files/model_axial.pt?download=1"], verbose=True)
-    fallback_multiple_urls("weights/model_sagittal.pt", urls=["https://github.com/ClePol/LIT/releases/download/weights/model_sagittal.pt", "https://zenodo.org/records/14497226/files/model_sagittal.pt?download=1"], verbose=True)
+    # "https://github.com/DeepMI/LIT/releases/download/weights/model_coronal.pt"
+    # "https://github.com/DeepMI/LIT/releases/download/weights/model_axial.pt"
+    # "https://github.com/DeepMI/LIT/releases/download/weights/model_sagittal.pt"
+    fallback_multiple_urls("weights/model_coronal.pt", urls=["https://zenodo.org/records/14510136/files/model_coronal.pt?download=1"], verbose=False)
+    fallback_multiple_urls("weights/model_axial.pt", urls=[, "https://zenodo.org/records/14510136/files/model_axial.pt?download=1"], verbose=False)
+    fallback_multiple_urls("weights/model_sagittal.pt", urls=["https://zenodo.org/records/14510136/files/model_sagittal.pt?download=1"], verbose=False)
 
 if __name__ == "__main__":
     main()

@@ -20,6 +20,7 @@ git clone https://github.com/Deep-MI/LIT.git && cd LIT
 We recommend using containerization in combination with the [run_lit_containerized.sh.sh](run_lit_containerized.sh.sh) wrapper script.
 This will automatically build the docker image from [dockerhub](https://hub.docker.com/r/deepmi/lit) and singularity image and run the LIT and optionally FastSurfer.
 
+
 ### Running LIT (only)
 
 The most straight forward way of doing the inpainting is just providing 

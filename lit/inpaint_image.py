@@ -21,6 +21,8 @@ from pathlib import Path
 import warnings
 warnings.filterwarnings('ignore', category=FutureWarning, message='`torch.cuda.amp.autocast\\(args...\\)` is deprecated')
 
+
+# supress warning on loading matplotlib
 import matplotlib
 from monai import transforms
 import numpy as np
@@ -41,8 +43,12 @@ from inference import *
 
 # use Agg backend on server
 if os.environ.get('DISPLAY','') == '':
-    #print('No display found. Using non-interactive Agg backend')
+    
+    #os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
+    os.makedirs('/tmp/', exist_ok=True)
+    os.environ['MPLCONFIGDIR'] = '/tmp'
     matplotlib.use('Agg')
+    
 
 
 # Custom types

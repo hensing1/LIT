@@ -89,13 +89,7 @@ CKPT_AXIAL="$PWD/weights/model_axial.pt"
 CKPT_SAGITTAL="$PWD/weights/model_sagittal.pt"
 INPAINTED_IMG="$OUT_DIR/inpainting_volumes/inpainting_result.nii.gz"
 
-# Check for required model files
-for model in "$CKPT_CORONAL" "$CKPT_AXIAL" "$CKPT_SAGITTAL"; do
-    if [ ! -f "$model" ]; then
-        echo "Error: Required model file not found: $model"
-        exit 1
-    fi
-done
+
 
 # Handle FastSurfer setup
 if [ "$RUN_FASTSURFER" = true ]; then
@@ -130,6 +124,14 @@ if [ ! -z "$MASK_IMAGE" ]; then
     mkdir -p "$OUT_DIR/inpainting_volumes"
 
     python3 lit/utils/download_checkpoints.py
+
+    # Check for required model files
+    for model in "$CKPT_CORONAL" "$CKPT_AXIAL" "$CKPT_SAGITTAL"; do
+        if [ ! -f "$model" ]; then
+            echo "Error: Required model file not found: $model"
+            exit 1
+        fi
+    done
     
     python3 lit/inpaint_image.py \
       --input_image "$INPUT_IMAGE" \

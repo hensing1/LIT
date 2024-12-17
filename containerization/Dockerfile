@@ -9,9 +9,11 @@ RUN apt update && apt install -y git && git clone https://github.com/Project-MON
 # COPY ./weights/model_coronal.pt /inpainting/weights/model_coronal.pth
 # COPY ./weights/model_sagittal.pt /inpainting/weights/model_sagittal.pth
 
-RUN wget https://zenodo.org/records/14497226/files/model_axial.pt -O /inpainting/weights/model_axial.pth
-RUN wget https://zenodo.org/records/14497226/files/model_coronal.pt -O /inpainting/weights/model_coronal.pth
-RUN wget https://zenodo.org/records/14497226/files/model_sagittal.pt -O /inpainting/weights/model_sagittal.pth
+RUN apt install -y wget
+RUN mkdir -p /inpainting/weights
+RUN wget https://zenodo.org/records/14510136/files/model_axial.pt -O /inpainting/weights/model_axial.pt
+RUN wget https://zenodo.org/records/14510136/files/model_coronal.pt -O /inpainting/weights/model_coronal.pt
+RUN wget https://zenodo.org/records/14510136/files/model_sagittal.pt -O /inpainting/weights/model_sagittal.pt
 
 COPY lit /inpainting/lit
 COPY run_lit.sh /inpainting/run_lit.sh

@@ -86,7 +86,7 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       shift # past value
       ;;
-    --use_singularity)
+    --singularity)
       USE_SINGULARITY=true
       shift # past value
       ;;
@@ -116,12 +116,6 @@ if [ ! -f "$MASK_IMAGE" ]; then
   exit 1
 fi
 
-if [ "$USE_SINGULARITY" = true ]; then
-  if [ ! -f "containerization/deepmi_lit_dev.simg" ]; then
-    echo "Error: Singularity image not found: containerization/deepmi_lit_dev.simg"
-    exit 1
-  fi
-fi
 
 mkdir -p "$OUT_DIR"
 
@@ -161,9 +155,15 @@ fi
 # Run command based on the containerization tool
 if [ "$USE_SINGULARITY" = true ]; then
   if [ ! -f "containerization/deepmi_lit.simg" ]; then
-    wget https://github.com/Deep-MI/LIT/releases/download/v0.5.0/deepmi_lit.simg -O containerization/deepmi_lit.simg
+    echo "=============== Downloading Singularity image... ==============="
+    wget https://zenodo.org/records/14497226/files/deepmi_lit.simg -O containerization/deepmi_lit_download.simg
+    mv containerization/deepmi_lit_download.simg containerization/deepmi_lit.simg
   fi
 
+  if [ ! -f "containerization/deepmi_lit.simg" ]; then
+    echo "Error: Singularity image not found: containerization/deepmi_lit.simg"
+    exit 1
+  fi
 
   singularity exec --nv \
     -B "${INPUT_IMAGE}":"${INPUT_IMAGE}":ro \
@@ -172,7 +172,7 @@ if [ "$USE_SINGULARITY" = true ]; then
     -B "$(pwd)":/workspace \
     -B "${fs_license:-/dev/null}":/fs_license/license.txt:ro \
     ./containerization/deepmi_lit.simg \
-    deepmi/lit -i "${INPUT_IMAGE}" -m "${MASK_IMAGE}" -o "${OUT_DIR}" "${POSITIONAL_ARGS[@]}"
+    /inpainting/run_lit.sh -i "${INPUT_IMAGE}" -m "${MASK_IMAGE}" -o "${OUT_DIR}" "${POSITIONAL_ARGS[@]}"
 else
   docker run --gpus "device=$GPUS" -it --ipc=host \
     --ulimit memlock=-1 --ulimit stack=67108864 --rm \
@@ -182,5 +182,5 @@ else
     -u "$(id -u):$(id -g)" \
     -v "$(pwd)":/workspace \
     -v "${fs_license:-/dev/null}":/fs_license/license.txt:ro \
-    deepmi/lit:dev -i "${INPUT_IMAGE}" -m "${MASK_IMAGE}" -o "${OUT_DIR}" "${POSITIONAL_ARGS[@]}"
+    deepmi/lit:0.5.0 -i "${INPUT_IMAGE}" -m "${MASK_IMAGE}" -o "${OUT_DIR}" "${POSITIONAL_ARGS[@]}"
 fi
