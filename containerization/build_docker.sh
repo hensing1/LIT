@@ -9,4 +9,4 @@ fi
 
 docker build . -t "deepmi/lit:dev" -f ./containerization/Dockerfile
 
-rm rm ./git.hash
+rm ./git.hash

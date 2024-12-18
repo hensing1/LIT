@@ -7,7 +7,7 @@ RUN_FASTSURFER=false
 DILATE=0
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
-VERSION="$(grep "^version\\s*=\\s*\"" "$(dirname "${BASH_SHOURCE[0]}")/pyproject.toml")"
+VERSION="$(grep "^version\\s*=\\s*\"" "$(dirname "${BASH_SOURCE[0]}")/pyproject.toml")"
 VERSION="${VERSION/version = /}"
 VERSION="${VERSION//\"/}"
 
@@ -18,8 +18,8 @@ function usage() {
     echo "  -m, --lesion_mask     : Lesion mask"
     echo "  -o, --sd              : Output directory"
     echo "Optional arguments:"
-    echo "  --fastsurfer         : Run FastSurfer (default: false)"
-    echo "  --fs_license         : Path to FreeSurfer license"
+    echo "  --fastsurfer          : Run FastSurfer (default: false)"
+    echo "  --fs_license          : Path to FreeSurfer license"
     echo "Other arguments:"
     echo "  --version             : Print version number and exit"
     echo ""
@@ -67,7 +67,18 @@ while [[ $# -gt 0 ]]; do
       usage
       ;;
     --version)
-
+      project_dir="$(dirname "${BASH_SOURCE[0]}")"
+      hash_file="$(dirname "${BASH_SOURCE[0]}")/git.hash"
+      if [[ -n "$(which git)" ]] && (git -C "$project_dir" rev-parse 2>/dev/null ) ; then
+        HASH="+$(git -C "$project_dir" rev-parse --short HEAD)"
+      elif [[ -e "$hash_file" ]] ; then
+        HASH="+$(cat "$hash_file")"
+      else
+        HASH=""
+      fi
+      echo "$VERSION$HASH"
+      exit
+      ;;
     *)
       POSITIONAL_ARGS+=("$1")
       shift
