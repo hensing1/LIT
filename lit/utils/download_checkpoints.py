@@ -102,11 +102,11 @@ def fallback_multiple_urls(checkpoint_name: str, urls: list[str], verbose: bool 
 
 
 def main():
-    # "https://github.com/DeepMI/LIT/releases/download/weights/model_coronal.pt"
-    # "https://github.com/DeepMI/LIT/releases/download/weights/model_axial.pt"
-    # "https://github.com/DeepMI/LIT/releases/download/weights/model_sagittal.pt"
+    # "https://github.com/Deep-MI/LIT/releases/download/v0.5.0/model_coronal.pt"
+    # "https://github.com/Deep-MI/LIT/releases/download/v0.5.0/model_axial.pt"
+    # "https://github.com/Deep-MI/LIT/releases/download/v0.5.0/model_sagittal.pt"
     fallback_multiple_urls("weights/model_coronal.pt", urls=["https://zenodo.org/records/14510136/files/model_coronal.pt?download=1"], verbose=False)
-    fallback_multiple_urls("weights/model_axial.pt", urls=[, "https://zenodo.org/records/14510136/files/model_axial.pt?download=1"], verbose=False)
+    fallback_multiple_urls("weights/model_axial.pt", urls=["https://zenodo.org/records/14510136/files/model_axial.pt?download=1"], verbose=False)
     fallback_multiple_urls("weights/model_sagittal.pt", urls=["https://zenodo.org/records/14510136/files/model_sagittal.pt?download=1"], verbose=False)
 
 if __name__ == "__main__":
