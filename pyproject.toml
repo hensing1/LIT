@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lit"
-version = "0.1.0"
+version = "0.5.0"
 description = "Lesion Inpainting Tool"
 authors = [
     {name = "Clemens Pollak, David, Kuegler, Martin Reuter, et al.", email = "clemens.pollak@dzne.de"}

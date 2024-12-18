@@ -1,4 +1,6 @@
-#/bin/bash
+#!/bin/bash
+
+git rev-parse --short HEAD > ./git.hash
 
 if [ "$1" = "--experimental" ]; then
     docker build . -t "deepmi/lit:dev" -f ./containerization/Dockerfile_experimental
@@ -6,3 +8,5 @@ if [ "$1" = "--experimental" ]; then
 fi
 
 docker build . -t "deepmi/lit:dev" -f ./containerization/Dockerfile
+
+rm rm ./git.hash

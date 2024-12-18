@@ -7,6 +7,10 @@ RUN_FASTSURFER=false
 DILATE=0
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
+VERSION="$(grep "^version\\s*=\\s*\"" "$(dirname "${BASH_SHOURCE[0]}")/pyproject.toml")"
+VERSION="${VERSION/version = /}"
+VERSION="${VERSION//\"/}"
+
 function usage() {
     echo "Usage: $0 -i <input_t1w> -m <lesion_mask> -o <output_dir> [--fastsurfer] [--fs_license <path>]"
     echo "Required arguments:"
@@ -16,7 +20,14 @@ function usage() {
     echo "Optional arguments:"
     echo "  --fastsurfer         : Run FastSurfer (default: false)"
     echo "  --fs_license         : Path to FreeSurfer license"
-    exit 1
+    echo "Other arguments:"
+    echo "  --version             : Print version number and exit"
+    echo ""
+    echo "If you use LIT for research publications, please cite:"
+    echo ""
+    echo "Pollak C, Kuegler D, Bauer T, Rueber T, Reuter M, FastSurfer-LIT: Lesion Inpainting Tool for Whole"
+    echo "  Brain MRI Segmentation with Tumors, Cavities and Abnormalities, Accepted for Imaging Neuroscience."
+    exit
 }
 
 # Check if no arguments provided
@@ -55,6 +66,8 @@ while [[ $# -gt 0 ]]; do
     -h|--help)
       usage
       ;;
+    --version)
+
     *)
       POSITIONAL_ARGS+=("$1")
       shift

@@ -95,5 +95,8 @@ Useful FastSurfer flags:
 
 The training script can be found [here](lit/train_ddpm.py). The same docker image can be used for training, but you need to mount the training data directory using the `-v` flag. Note that training data are excpected to be conformed (with the script [conform.py](lit/data/conform.py)).
 
+## References
 
+If you use LIT for research publications, please cite:
 
+_Pollak C, Kuegler D, Bauer T, Rueber T, Reuter M, FastSurfer-LIT: Lesion Inpainting Tool for Whole Brain MRI Segmentation with Tumors, Cavities and Abnormalities, Accepted for Imaging Neuroscience._

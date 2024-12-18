@@ -6,15 +6,17 @@ function usage()
 {
 cat << EOF
 
-Usage: run_lit_docker.sh --input_image <input_t1w_volume> --mask_image <lesion_mask_volume> --output_directory <output_directory>  [OPTIONS]
+Usage: run_lit_containerized.sh --input_image <input_t1w_volume> --mask_image <lesion_mask_volume> --output_directory <output_directory>  [OPTIONS]
 
-run_lit_docker.sh takes a T1 full head image and creates:
+run_lit_containerized.sh takes a T1 full head image and creates:
      (i)  an inpainted T1w image using a lesion mask
      (ii) (optional) whole brain segmentation and cortical surface reconstruction using FastSurferVINN
 
 FLAGS:
   -h, --help
       Print this message and exit
+  --version
+      Print the version number and exit
   --gpus <gpus>
       GPUs to use. Default: all
   -i, --input_image <input_image>
@@ -25,15 +27,17 @@ FLAGS:
       Path to the output directory
 
 Examples:
-  ./run_lit_docker.sh -i t1w.nii.gz -m lesion.nii.gz -o ./output
-  ./run_lit_docker.sh -i t1w.nii.gz -m lesion.nii.gz -o ./output --fastsurfer --gpus 0
+  ./run_lit_containerized.sh -i t1w.nii.gz -m lesion.nii.gz -o ./output
+  ./run_lit_containerized.sh -i t1w.nii.gz -m lesion.nii.gz -o ./output --fastsurfer --gpus 0
 
 
 
 REFERENCES:
 
-If you use this for research publications, please cite:
+If you use LIT for research publications, please cite:
 
+Pollak C, Kuegler D, Bauer T, Rueber T, Reuter M, FastSurfer-LIT: Lesion Inpainting Tool for Whole
+  Brain MRI Segmentation with Tumors, Cavities and Abnormalities, Accepted for Imaging Neuroscience.
 EOF
 }
 
@@ -44,6 +48,10 @@ if [[ $# -eq 0 ]]; then
 fi
 
 POSITIONAL_ARGS=()
+
+VERSION="$(grep "^version\\s*=\\s*\"" "$(dirname "${BASH_SOURCE[0]}")/pyproject.toml")"
+VERSION="${VERSION/version = /}"
+VERSION="${VERSION//\"/}"
 
 # Initialize RUN_FASTSURFER to false by default
 RUN_FASTSURFER=false
@@ -79,6 +87,19 @@ while [[ $# -gt 0 ]]; do
       ;;
     -h|--help)
       usage
+      exit
+      ;;
+    --version)
+      project_dir="$(dirname "${BASH_SOURCE[0]}")"
+      hash_file="$(dirname "${BASH_SOURCE[0]}")/git.hash"
+      if [[ -n "$(which git)" ]] && (git -C "$project_dir" rev-parse 2>/dev/null ) ; then
+        HASH="+$(git -C "$project_dir" rev-parse --short HEAD)"
+      elif [[ -e "$hash_file" ]] ; then
+        HASH="+$(cat "$hash_file")"
+      else
+        HASH=""
+      fi
+      echo "$VERSION$HASH"
       exit
       ;;
     --fs_license)
@@ -182,5 +203,5 @@ else
     -u "$(id -u):$(id -g)" \
     -v "$(pwd)":/workspace \
     -v "${fs_license:-/dev/null}":/fs_license/license.txt:ro \
-    deepmi/lit:0.5.0 -i "${INPUT_IMAGE}" -m "${MASK_IMAGE}" -o "${OUT_DIR}" "${POSITIONAL_ARGS[@]}"
+    deepmi/lit:$VERSION -i "${INPUT_IMAGE}" -m "${MASK_IMAGE}" -o "${OUT_DIR}" "${POSITIONAL_ARGS[@]}"
 fi
