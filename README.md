@@ -87,7 +87,7 @@ python lit/postprocessing/lesion_to_surface.py \
 Useful FastSurfer flags:
 - `--seg_only` skip cortical surface reconstruction (much faster!)
 - `--fs_license` has to be set to a valid FreeSurfer license file
-- `--parallel` accelerate cortical surface reconstruction by processing both hemispheres in parallel
+- `--threads 2` accelerate cortical surface reconstruction by processing both hemispheres in parallel
 
 
 
