@@ -7,7 +7,7 @@ name = "lit"
 version = "0.5.0"
 description = "Lesion Inpainting Tool"
 authors = [
-    {name = "Clemens Pollak, David, Kuegler, Martin Reuter, et al.", email = "clemens.pollak@dzne.de"}
+    {name = "Clemens Pollak, David Kuegler, Martin Reuter et al.", email = "clemens.pollak@dzne.de"}
 ]
 maintainers = [{name = 'FastSurfer Developers'}]
 license = {file = "LICENSE"}
@@ -51,3 +51,5 @@ testpaths = [
 inpaint-image = "lit/inpaint_image.py"
 
 
+[project.urls]
+Homepage = "https://github.com/Deep-MI/LIT"
