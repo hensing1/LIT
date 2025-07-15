@@ -7,7 +7,7 @@ RUN_FASTSURFER=false
 DILATE=0
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
-VERSION="$(grep "^version\\s*=\\s*\"" "$(dirname "${BASH_SOURCE[0]}")/pyproject.toml")"
+VERSION="$(python3 -c 'import fastsurfer_lit; print(fastsurfer_lit.__version__)')"
 VERSION="${VERSION/version = /}"
 VERSION="${VERSION//\"/}"
 

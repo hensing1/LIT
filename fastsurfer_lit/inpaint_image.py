@@ -33,11 +33,11 @@ import torch
 from generative.networks.schedulers import DDPMScheduler, DDIMScheduler
 from torch.amp import autocast # previous: from torch.cuda.amp import autocast
 import torch.nn.functional as F
-from networks.DiffusionUnet import DiffusionModelUNetVINN
+from fastsurfer_lit.networks.DiffusionUnet import DiffusionModelUNetVINN
 
-from data import conform
-from utils.plotting import plot_batch, plot_inpainting
-from inference import *
+from fastsurfer_lit.data import conform
+from fastsurfer_lit.utils.plotting import plot_batch, plot_inpainting
+from fastsurfer_lit.inference import *
 
 
 

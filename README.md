@@ -9,13 +9,13 @@ This tool can inpaint lesions independent of their shape or appearance for furth
 
 ```bash
 git clone https://github.com/Deep-MI/LIT.git && cd LIT
-./run_lit_containerized.sh --input_image T1w.nii.gz --mask_image lesion_mask.nii.gz --output_directory output_directory
+./fastsurfer_lit/scripts/run_lit_containerized.sh --input_image T1w.nii.gz --mask_image lesion_mask.nii.gz --output_directory output_directory
 # Add --singularity to use singularity instead of docker
 ```
 
 ## How to run LIT
 
-We recommend using containerization in combination with the [run_lit_containerized.sh.sh](run_lit_containerized.sh.sh) wrapper script.
+We recommend using containerization in combination with the [fastsurfer_lit/scripts/run_lit_containerized.sh](fastsurfer_lit/scripts/run_lit_containerized.sh) wrapper script.
 This will automatically build the docker image from [dockerhub](https://hub.docker.com/r/deepmi/lit) and singularity image and run the LIT and optionally FastSurfer.
 
 
@@ -28,7 +28,7 @@ The most straight forward way of doing the inpainting is just providing
 4. (optional) The number times to dilate the lesion mask (default: 0)
 
 ```bash
-./run_lit_containerized.sh --input_image T1w.nii.gz --mask_image lesion_mask.nii.gz --output_directory output_directory --dilate 2
+./fastsurfer_lit/scripts/run_lit_containerized.sh --input_image T1w.nii.gz --mask_image lesion_mask.nii.gz --output_directory output_directory --dilate 2
 ```
 The default is to use docker. Add the `--use_singularity` flag to use singularity instead. To use the containerized version of this tool either docker or singularity should be installed. To build the singularity image docker is also required, otherwise please download the prebuild image.
 

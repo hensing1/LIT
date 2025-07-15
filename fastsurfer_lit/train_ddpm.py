@@ -40,10 +40,10 @@ from torch.cuda.amp import GradScaler, autocast
 from tqdm import tqdm
 
 from generative.networks.schedulers import DDPMScheduler
-from networks.DiffusionUnet import DiffusionModelUNetVINN
-from inference import DiffusionInfererVINN
-from utils import plot_batch, plot_scheduler
-from data.datasets import get_base_dataset, SlicedDataset
+from fastsurfer_lit.networks.DiffusionUnet import DiffusionModelUNetVINN
+from fastsurfer_lit.inference import DiffusionInfererVINN
+from fastsurfer_lit.utils import plot_batch, plot_scheduler
+from fastsurfer_lit.data.datasets import get_base_dataset, SlicedDataset
 
 
 def argument_parser():
