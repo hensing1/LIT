@@ -49,7 +49,7 @@ fi
 
 POSITIONAL_ARGS=()
 
-VERSION="$(python3 -c 'import fastsurfer_lit; print(fastsurfer_lit.__version__)')"
+VERSION="$(python3 -c 'import LIT; print(LIT.__version__)')"
 VERSION="${VERSION/version = /}"
 VERSION="${VERSION//\"/}"
 

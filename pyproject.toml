@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fastsurfer_lit"
+name = "lesion-inpainting-tool"
 version = "0.5.1"
 description = "Lesion Inpainting Tool"
 authors = [
@@ -40,7 +40,7 @@ keywords = [
 where = ["."]
 
 [tool.setuptools.package-data]
-fastsurfer_lit = ["scripts/run_lit.sh"]
+LIT = ["scripts/run_lit.sh"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -50,8 +50,8 @@ testpaths = [
 ]
 
 [project.scripts]
-run-lit = "fastsurfer_lit.cli:run_lit"
-inpaint-image = "fastsurfer_lit.inpaint_image:main"
+run-lit = "LIT.cli:run_lit"
+inpaint-image = "LIT.inpaint_image:main"
 
 [project.urls]
 Homepage = "https://github.com/Deep-MI/LIT"
