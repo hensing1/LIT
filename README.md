@@ -1,7 +1,5 @@
 # Lesion Inpainting Tool (LIT) 🔥
 
-![teaser](https://github.com/ClePol/LIT/blob/main//doc/overview.png?raw=true)
-
 ## Overview
 This repository containes sourcecode and documentation related to our publication **FastSurfer-LIT: Lesion Inpainting Tool for Whole Brain MRI Segmentation With Tumors,
 Cavities and Abnormalities** (doi pending).
